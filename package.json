@@ -4,8 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "npm run dev",
   },
   "keywords": [],
   "author": "Yevhen_Neklesov <FMCustoms261@gmail.com>",
