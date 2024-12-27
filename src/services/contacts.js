@@ -3,7 +3,6 @@ import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
 export const getAllContacts = async ({
-  userId,
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
@@ -13,14 +12,14 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactsCollection.find(userId);
+  const contactsQuery = ContactsCollection.find();
 
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
   }
 
   const [contactsCount, contacts] = await Promise.all([
-    ContactsCollection.find(userId).merge(contactsQuery).countDocuments(),
+    ContactsCollection.find().merge(contactsQuery).countDocuments(),
     contactsQuery
       .skip(skip)
       .limit(limit)
@@ -36,32 +35,26 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = async (userId, contactId) => {
-  const contact = await ContactsCollection.findById({ id: contactId, userId });
+export const getContactById = async (contactId) => {
+  const contact = await ContactsCollection.findById(contactId);
   return contact;
 };
 
-export const createContact = async (userId, payload) => {
-  const contact = await ContactsCollection.create({ ...payload, userId });
+export const createContact = async (payload) => {
+  const contact = await ContactsCollection.create(payload);
   return contact;
 };
 
-export const deleteContact = async (userId, contactId) => {
+export const deleteContact = async (contactId) => {
   const contact = await ContactsCollection.findOneAndDelete({
     _id: contactId,
-    userId,
   });
   return contact;
 };
 
-export const updateContact = async (
-  userId,
-  contactId,
-  payload,
-  options = {},
-) => {
+export const updateContact = async (contactId, payload, options = {}) => {
   const rawResults = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId, userId },
+    { _id: contactId },
     payload,
     {
       new: true,
