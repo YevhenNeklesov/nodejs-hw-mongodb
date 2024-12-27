@@ -14,7 +14,6 @@ export async function getContactsController(req, res) {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
-  const userId = req.user._id;
 
   const contacts = await getAllContacts({
     page,
@@ -22,7 +21,7 @@ export async function getContactsController(req, res) {
     sortBy,
     sortOrder,
     filter,
-    userId,
+    userId: req.user._id,
   });
 
   res.status(200).json({
@@ -79,7 +78,8 @@ export async function upsertContactController(req, res, next) {
 
   const result = await updateContact(
     contactId,
-    { ...req.body, userId },
+    userId,
+    { ...req.body },
     {
       upsert: true,
     },
@@ -103,7 +103,7 @@ export async function patchContactController(req, res, next) {
   const { contactId } = req.params;
   const userId = req.user._id;
 
-  const result = await updateContact(contactId, { ...req.body, userId });
+  const result = await updateContact(contactId, userId, { ...req.body });
 
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
