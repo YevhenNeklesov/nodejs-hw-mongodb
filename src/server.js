@@ -7,6 +7,7 @@ import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 
 export async function setupServer() {
   try {
@@ -29,6 +30,8 @@ export async function setupServer() {
         message: 'Hello world',
       });
     });
+
+    app.use('/uploads', express.static(UPLOAD_DIR));
 
     app.use(router);
 
