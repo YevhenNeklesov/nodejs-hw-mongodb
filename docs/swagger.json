@@ -21,10 +21,6 @@
     {
       "name": "Contacts",
       "description": "Operations about users."
-    },
-    {
-      "name": "Auth",
-      "description": "Auth operations."
     }
   ],
   "paths": {
@@ -77,14 +73,6 @@
                 "desc"
               ],
               "example": "asc"
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxAge",
-            "schema": {
-              "type": "number",
-              "example": 16
             }
           },
           {
@@ -171,14 +159,14 @@
               }
             }
           },
-          "404": {
-            "$ref": "#/components/responses/404"
+          "401": {
+            "$ref": "#/components/responses/401"
           }
         }
       },
       "post": {
         "tags": [
-          "Contact"
+          "Contacts"
         ],
         "summary": "Create contact",
         "operationId": "createContact",
@@ -268,8 +256,8 @@
               }
             }
           },
-          "404": {
-            "$ref": "#/components/responses/404"
+          "401": {
+            "$ref": "#/components/responses/401"
           }
         }
       }
@@ -328,6 +316,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
           "404": {
             "$ref": "#/components/responses/404"
           }
@@ -335,7 +326,7 @@
       },
       "delete": {
         "tags": [
-          "Contact"
+          "Contacts"
         ],
         "summary": "Delete contact",
         "operationId": "deleteContact",
@@ -357,7 +348,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Contact successfully deleted",
             "content": {
               "application/json": {
@@ -370,7 +361,7 @@
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 200
+                      "example": 204
                     },
                     "message": {
                       "type": "string",
@@ -381,6 +372,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
           "404": {
             "$ref": "#/components/responses/404"
           }
@@ -388,7 +382,7 @@
       },
       "patch": {
         "tags": [
-          "Contact"
+          "Contacts"
         ],
         "summary": "Update contact",
         "operationId": "updateContact",
@@ -484,6 +478,9 @@
               }
             }
           },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
           "404": {
             "$ref": "#/components/responses/404"
           }
@@ -556,6 +553,43 @@
       }
     },
     "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized error"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized to perform this action"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "404": {
         "description": "Not found error",
         "content": {

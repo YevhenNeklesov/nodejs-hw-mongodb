@@ -29,11 +29,6 @@ parameters:
       enum: ['asc', 'desc']
       example: 'asc'
   - in: query
-    name: maxAge
-    schema:
-      type: number
-      example: 16
-  - in: query
     name: contactType
     schema:
       type: string
@@ -90,5 +85,5 @@ responses:
                 hasPreviousPage:
                   type: boolean
                   example: true
-  '404':
-    $ref: '../../components/responses/404.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
