@@ -348,28 +348,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Contact successfully deleted",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully deleted the contact!"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Contact successfully deleted"
           },
           "401": {
             "$ref": "#/components/responses/401"
