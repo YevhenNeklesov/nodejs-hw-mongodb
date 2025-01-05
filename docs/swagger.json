@@ -184,8 +184,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -202,7 +201,7 @@
                     "description": "Contact's email",
                     "example": "name@example.com"
                   },
-                  "isFavorite": {
+                  "isFavourite": {
                     "description": "Favorite contact",
                     "type": "boolean",
                     "example": false
@@ -424,7 +423,7 @@
                     "type": "string",
                     "example": "name@example.com"
                   },
-                  "isFavorite": {
+                  "isFavourite": {
                     "description": "Favorite contact",
                     "type": "boolean",
                     "example": false

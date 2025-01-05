@@ -14,7 +14,6 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-          - userId
         properties:
           name:
             description: "Contacts's name"
@@ -27,7 +26,7 @@ requestBody:
           email:
             description: "Contact's email"
             example: name@example.com
-          isFavorite:
+          isFavourite:
             description: 'Favorite contact'
             type: boolean
             example: false
